@@ -1,6 +1,3 @@
-import pytest
-
-
 class TestBurger:
 
     def test_burger_init_bun_is_none(self, burger):
@@ -53,18 +50,15 @@ class TestBurger:
     def test_get_price_correct_burger_return_correct_price(self, burger_with_ingredients_and_bun):
         assert burger_with_ingredients_and_bun.get_price() == 381
 
-    @pytest.mark.parametrize('number_line', [0, 4])
-    def test_get_receipt_correct_burger_contain_name_bun_first_and_fifth_line(self, burger_with_ingredients_and_bun, number_line):
-        first_line = burger_with_ingredients_and_bun.get_receipt().split('\n')[number_line]
-        assert f'(==== {burger_with_ingredients_and_bun.bun.get_name()} ====)' in first_line
     
-    @pytest.mark.parametrize('number_line, index', [(1, 0), (2, 1), (3, 2)])
-    def test_get_receipt_correct_burger_contain_type_and_name_ingredient_in_correct_line(self, burger_with_ingredients_and_bun, number_line, index):
-        line = burger_with_ingredients_and_bun.get_receipt().split('\n')[number_line]
-        assert f'= {str(burger_with_ingredients_and_bun.ingredients[index].get_type()).lower()} {burger_with_ingredients_and_bun.ingredients[index].get_name()} =' \
-        in line
-
-    def test_get_receipt_correct_burger_contain_correct_price_in_last_line(self, burger_with_ingredients_and_bun):
-        last_line = burger_with_ingredients_and_bun.get_receipt().split('\n')[-1]
-        assert f'Price: {burger_with_ingredients_and_bun.get_price()}' in last_line
+    def test_get_receipt_correct_burger_return_correct_receipt(self, burger_with_ingredients_and_bun):
+        
+        assert burger_with_ingredients_and_bun.get_receipt() == (
+        '(==== black bun ====)\n'
+        '= sauce hot sauce =\n'
+        '= filling cutlet =\n'
+        '= sauce chili sauce =\n'
+        '(==== black bun ====)\n\n'
+        'Price: 381.0')
+    
 
